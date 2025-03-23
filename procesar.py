@@ -44,6 +44,10 @@ all_data['Promedio Aplicable'] = all_data.groupby('#')['Aplicable Valor'].transf
 all_data = all_data.drop_duplicates(subset=['#']).set_index('#')
 all_data = all_data.join(importance_counts, rsuffix='_imp').join(difficulty_counts, rsuffix='_diff').join(applicable_counts, rsuffix='_app')
 
+# 📌 Eliminar las columnas originales
+cols_to_drop = ["Aplicable a", "Importancia", "Dificultad de Deducción", "Comentarios"]
+all_data = all_data.drop(columns=cols_to_drop, errors='ignore')
+
 # 📌 Guardar el DataFrame procesado en un archivo CSV (opcional)
 all_data.to_csv("datos_procesados.csv", encoding="utf-8")
 
